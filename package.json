@@ -1,0 +1,30 @@
+{
+  "name": "wakeonlan",
+  "version": "0.1.0",
+  "description": "Wake on LAN",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run lint",
+    "lint": "standard | snazzy"
+  },
+  "author": "Taka Kojima <taka@gigafied.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gigafied/wakeonlan.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gigafied/wakeonlan/issues"
+  },
+  "keywords": [
+    "wake",
+    "wakeonlan",
+    "lan",
+    "network",
+    "wakeup"
+  ],
+  "devDependencies": {
+    "snazzy": "^5.0.0",
+    "standard": "^8.4.0"
+  }
+}
