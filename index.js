@@ -5,9 +5,10 @@ const net = require('net')
 const dgram = require('dgram')
 
 let createWOLPacket = mac => {
+  if (!mac) throw new Error('MAC address not specified')
   mac = mac.replace(/:/g, '')
   if (mac.length !== 12 || mac.match(/[^a-fA-F0-9]/)) throw new Error(`Invalid MAC address: ${mac}`)
-  return new Buffer('ff'.repeat(6) + mac.repeat(16), 'hex')
+  return Buffer.from('ff'.repeat(6) + mac.repeat(16), 'hex')
 }
 
 let getBroadcastAddr = (ip, netmask) => {
@@ -22,7 +23,7 @@ let sendToAll = (mac, opts) => {
   let promises = []
   let ifaces = os.networkInterfaces()
   for (let p in ifaces) {
-    ifaces[p].forEach(iface => {
+    ifaces[p]?.forEach(iface => {
       if (iface.internal || !net.isIPv4(iface.address)) return
       let ifaceOpts = Object.assign({}, opts)
       ifaceOpts.from = iface.address
@@ -53,7 +54,7 @@ let send = (mac, opts = {}) => {
           socket.close()
           clearInterval(intervalId)
           if (err) return reject(err)
-          return resolve()
+          return resolve(true)
         }
       }
 
